@@ -76,7 +76,7 @@
                                         @csrf
                                         <div class="col-12">
                                             <label for="yourName" class="form-label">Your Name</label>
-                                            <input type="text" name="name" :value="old('name')" required
+                                            <input type="text" name="name" value="{{ old('name') }}" required
                                                 autofocus autocomplete="name" class="form-control" id="yourName"
                                                 required />
                                             @if ($errors->any())
@@ -92,7 +92,7 @@
 
                                         <div class="col-12">
                                             <label for="yourEmail" class="form-label">Your Email</label>
-                                            <input type="email" name="email" :value="old('email')"
+                                            <input type="email" name="email" value="{{ old('email') }}"
                                                 autocomplete="email" class="form-control" id="yourEmail" />
                                             @if ($errors->any())
                                                 <div class="text-danger">
@@ -109,7 +109,7 @@
                                             <label for="yourUsername" class="form-label">Username</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="text" name="username" :value="old('username')" required
+                                                <input type="text" name="username" value="{{ old('username') }}" required
                                                     autocomplete="username" class="form-control" id="yourUsername"
                                                     required />
                                             </div>
