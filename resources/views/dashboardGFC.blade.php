@@ -147,7 +147,7 @@
         <div class="row">
           <!-- Left side columns -->
           <!-- About GFC -->
-          <div class="col-xxl-8 col-md-6">
+          <div class="col-xxl-12 col-md-6">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">About GFC</h5>
@@ -166,32 +166,7 @@
             </div>
           </div>
 
-          <!-- Filter Wilayah GFC -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card filter-card">
-              <div class="card-body">
-                <h5 class="card-title">Filter <span>| Wilayah</span></h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-x-diamond"></i>
-                  </div>
-                  <div class="ps-3">
-                    <div class="dropdown">
-                      <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter </a>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Kalimantan Utara</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Barat</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Timur</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Tengah</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Selatan</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
 
           <div class="col-lg-12">
             <div class="row">
@@ -228,9 +203,9 @@
               </div>
               <!-- End Forest Loss Card -->
 
-              <!-- Forest Gain Card -->
+              <!-- Filter Card -->
               <div class="col-xxl-4 col-md-6">
-                <div class="card info-card forestgain-card">
+                <div class="card info-card filter-card">
                   <!-- <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -244,19 +219,26 @@
                   </div> -->
 
                   <div class="card-body">
-                    <h5 class="card-title">Forest Gain <span>| GFC</span></h5>
+                <h5 class="card-title">Filter <span>| Provinsi</span></h5>
 
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-arrow-up-circle-fill"></i>
-                        <!-- EDIT -->
-                      </div>
-                      <div class="ps-3">
-                        <h6>17.8 kha</h6>
-                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-                      </div>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-x-diamond"></i>
+                  </div>
+                  <div class="ps-3">
+                    <div class="dropdown">
+                      <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter </a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Kalimantan Utara</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Barat</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Timur</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Tengah</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Selatan</a></li>
+                      </ul>
                     </div>
                   </div>
+                </div>
+              </div>
                 </div>
               </div>
               <!-- End Forest Gain Card -->
@@ -405,6 +387,29 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Berita</h5>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                      <!-- Whole Indonesia -->
+                      <iframe width="520" height="690" frameborder="0" src="https://www.globalforestwatch.org/embed/widget/treeLoss/country/IDN"></iframe>
+                      </div>
+                      <div class="col-md-6">
+                        <!-- ANNUAL TREE COVER LOSS BY DOMINANT DRIVER IN INDONESIA -->
+                      <iframe width="520" height="690" frameborder="0" src="https://www.globalforestwatch.org/embed/widget/treeLossTsc/country/IDN"></iframe>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                      <!-- COMPONENTS OF NET CHANGE IN TREE COVER IN INDONESIA -->
+                      <iframe width="520" height="690" frameborder="0" src="https://www.globalforestwatch.org/embed/widget/netChange/country/IDN"></iframe>                      </div>
+                      <div class="col-md-6">
+                        <!-- TREE COVER BY TYPE IN INDONESIA -->
+                      <iframe width="520" height="690" frameborder="0" src="https://www.globalforestwatch.org/embed/widget/treeCover/country/IDN"></iframe>                      </div>
+                    </div>
+
+
+                    
 
                     <!-- Bar Chart -->
                     <div id="reportsChart" style="width: auto"></div>
