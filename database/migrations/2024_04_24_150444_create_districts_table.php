@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('province_id')->constrained();
             $table->string('name');
             $table->enum('region', ['Kota', 'Kabupaten']);
+            $table->decimal('long', 10, 7)->nullable();
+            $table->decimal('lat', 10, 7)->nullable();
             $table->timestamps();
         });
     }
