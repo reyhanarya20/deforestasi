@@ -147,7 +147,7 @@
         <div class="row">
           <!-- Left side columns -->
           <!-- About GFC -->
-          <div class="col-xxl-8 col-md-6">
+          <div class="col-xxl-12 col-md-6">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">About NTL</h5>
@@ -166,32 +166,7 @@
             </div>
           </div>
 
-          <!-- Filter Wilayah NTL -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card filter-card">
-              <div class="card-body">
-                <h5 class="card-title">Filter <span>| Provinsi</span></h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-x-diamond"></i>
-                  </div>
-                  <div class="ps-3">
-                    <div class="dropdown">
-                      <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter </a>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Kalimantan Utara</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Barat</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Timur</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Tengah</a></li>
-                        <li><a class="dropdown-item" href="#">Kalimantan Selatan</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
 
           <div class="col-lg-12">
             <div class="row">
@@ -232,7 +207,7 @@
               <div class="col-xxl-4 col-md-6">
                 <div class="card info-card filter-card">
                   <div class="card-body">
-                    <h5 class="card-title">Filter <span>| Kota</span></h5>
+                    <h5 class="card-title">Filter <span>| Kota / Kabupaten</span></h5>
 
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -275,50 +250,31 @@
               </div>
               <!-- End Filter Kota Card -->
 
-              <!-- Filter c Card -->
+              <!-- Filter Card -->
               <div class="col-xxl-4 col-xl-12">
-                <div class="card info-card filter-card">
-                  <div class="card-body">
-                    <h5 class="card-title">Filter <span>| This Year</span></h5>
+              <div class="card info-card filter-card">
+              <div class="card-body">
+                <h5 class="card-title">Filter <span>| Provinsi</span></h5>
 
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-filter-circle-fill"></i>
-                      </div>
-                      <div class="ps-3">
-                        <div class="dropdown">
-                          <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter </a>
-                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">2000</a></li>
-                            <li><a class="dropdown-item" href="#">2001</a></li>
-                            <li><a class="dropdown-item" href="#">2002</a></li>
-                            <li><a class="dropdown-item" href="#">2003</a></li>
-                            <li><a class="dropdown-item" href="#">2004</a></li>
-                            <li><a class="dropdown-item" href="#">2005</a></li>
-                            <li><a class="dropdown-item" href="#">2006</a></li>
-                            <li><a class="dropdown-item" href="#">2007</a></li>
-                            <li><a class="dropdown-item" href="#">2008</a></li>
-                            <li><a class="dropdown-item" href="#">2009</a></li>
-                            <li><a class="dropdown-item" href="#">2010</a></li>
-                            <li><a class="dropdown-item" href="#">2011</a></li>
-                            <li><a class="dropdown-item" href="#">2012</a></li>
-                            <li><a class="dropdown-item" href="#">2013</a></li>
-                            <li><a class="dropdown-item" href="#">2014</a></li>
-                            <li><a class="dropdown-item" href="#">2015</a></li>
-                            <li><a class="dropdown-item" href="#">2016</a></li>
-                            <li><a class="dropdown-item" href="#">2017</a></li>
-                            <li><a class="dropdown-item" href="#">2018</a></li>
-                            <li><a class="dropdown-item" href="#">2019</a></li>
-                            <li><a class="dropdown-item" href="#">2020</a></li>
-                            <li><a class="dropdown-item" href="#">2021</a></li>
-                            <li><a class="dropdown-item" href="#">2022</a></li>
-                            <li><a class="dropdown-item" href="#">2023</a></li>
-                          </ul>
-                        </div>
-                      </div>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-x-diamond"></i>
+                  </div>
+                  <div class="ps-3">
+                    <div class="dropdown">
+                      <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter </a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Kalimantan Utara</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Barat</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Timur</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Tengah</a></li>
+                        <li><a class="dropdown-item" href="#">Kalimantan Selatan</a></li>
+                      </ul>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
               </div>
               <!-- End Filter Tahun Card -->
 
