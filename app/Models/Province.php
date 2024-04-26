@@ -14,4 +14,9 @@ class Province extends Model
       'long',
       'lat'
   ];
+
+  public function gfc()
+  {
+    return $this->belongsTo(Gfc::class);
+  }
 }

@@ -14,4 +14,9 @@ class Gfc extends Model
       'year',
       'loss_year'
   ];
+
+  public function province()
+  {
+    return $this->belongsTo(Province::class);
+  }
 }
