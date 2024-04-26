@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\Gfc;
 use App\Models\Province;
 use Illuminate\Http\Request;
@@ -13,28 +14,44 @@ class GFCController extends Controller
   public function index()
   {
 
-    $cors = Gfc::with([
-      'province'
+    $cordinateslos = District::join('gfcs', 'districts.id', '=', 'gfcs.district_id')
+      ->select('districts.id', DB::raw('AVG(gfcs.loss_year) as total_loss'))
+      ->groupBy('districts.id')
+      ->get();
+    // dd($cordinateslos);
+    $cordinates = District::with([
+      'gfc'
     ])->get();
 
-    $totalLossPerProvince = Gfc::with([
-      'province'
-    ])->select('province_id', DB::raw('AVG(loss_year) as total_loss'))
-    ->groupBy('province_id')
-    ->get();
-    
-    // selectRaw('province_id, AVG(loss_year) as avg_year_loss')
-    // ->groupBy('province_id')
-    // ->havingRaw('AVG(loss_year) IS NOT NULL')
-    // ->get();
-      
 
-      // dd($totalLossPerProvince);
+    $yearsBar = Gfc::distinct()
+      ->pluck('year');
+    $yearsDou = Gfc::distinct()
+      ->pluck('year');
+    $barcharts = Gfc::select(DB::raw('AVG(loss_year) as avg_loss_year'))
+      ->groupBy('year')
+      ->get();
+      $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
+      ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'))
+      ->groupBy('districts.id')
+      ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
+      ->take(5)
+      ->get();
+
+    $doughnutvalues = $doughnutData->pluck('avg_loss_year');
+    $doughnutlabels = $doughnutData->pluck('label');
+
+    // dd($totalLossPerProvince);
 
     // Mengirimkan data ke view 'dashboardGFC' bersama dengan total loss per provinsi
     return view('dashboardGFC', [
-      'cors' => $cors, 
-      'totalLossPerProvince' => $totalLossPerProvince
+      'cordinateslos' => $cordinateslos,
+      'coordinates' => $cordinates,
+      'yearsbar' => $yearsBar,
+      'yearsdou' => $yearsDou,
+      'barcharts' => $barcharts,
+      'doughnutvalues' => $doughnutvalues,
+      'doughnutlabels' => $doughnutlabels,
 
     ]);
   }

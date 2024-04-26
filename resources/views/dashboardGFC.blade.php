@@ -27,6 +27,8 @@
     <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
     <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
     <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+
+    {{-- Library Leaflet  --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
         integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
         crossorigin="" />
@@ -34,11 +36,14 @@
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
 
+    {{-- Library Chart JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet" />
 
     <!-- =======================================================
-  * Template Name: NiceAdmin
+  * Template Name: NiceAdmins
   * Updated: Mar 13 2024 with Bootstrap v5.3.3
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
@@ -359,55 +364,37 @@
                                         // Array of marker coordinates
                                         var markerCoordinates = [
 
-                                            @foreach ($cors as $cor)
-                                                [{{ $cor->province->lat }}, {{ $cor->province->long }}],
+                                            @foreach ($coordinates as $cor)
+                                                [{{ $cor->lat }}, {{ $cor->long }}],
                                             @endforeach
 
                                         ];
 
                                         // Array of marker names
                                         var markerNames = [
-                                            @foreach ($cors as $cor)
-                                                "{{ $cor->province->name }}",
+                                            @foreach ($coordinates as $cor)
+                                                "{{ $cor->name }}",
                                             @endforeach
                                         ];
 
-// Array of total losses
-var markerLosses = [
-    @php
-        // Mengelompokkan data cors berdasarkan province_id dan menghitung rata-rata loss_year
-        $groupedCors = $cors->groupBy('province_id');
+                                        // Array of total losses
+                                        var markerLosses = [
+                                            @foreach ($cordinateslos as $cor)
+                                                "{{ $cor->total_loss }}",
+                                            @endforeach
+                                        ];
 
-        // Array untuk menyimpan rata-rata loss_year yang diulang 11 kali
-        $repeatedLosses = [];
-
-        foreach ($groupedCors as $provinceId => $provinceCors) {
-            // Menghitung rata-rata loss_year untuk setiap grup province_id
-            $averageLoss = $provinceCors->avg('loss_year');
-
-            // Jika rata-rata tidak null, tambahkan ke dalam array repeatedLosses
-            if ($averageLoss !== null) {
-                // Mengulang nilai rata-rata sebanyak 11 kali dan menyimpannya ke dalam array
-                $repeatedLosses = array_merge($repeatedLosses, array_fill(0, 11, $averageLoss));
-            }
-        }
-    @endphp
-
-    @foreach ($repeatedLosses as $loss)
-        "{{ $loss }}",
-    @endforeach
-];
-// Adding markers to the map
-for (var i = 0; i < markerCoordinates.length; i++) {
-    var coord = markerCoordinates[i];
-    var name = markerNames[i];
-    var marker = L.marker(coord).addTo(map);
-    var loss = markerLosses[i]; // Mengambil loss yang sesuai dengan indeks i
-    console.log(name);
-    console.log(coord);
-    console.log(loss);
-        marker.bindPopup('<b>' + name + '</b><br />Rata-rata Loss: ' + loss).openPopup();
-}
+                                        // Adding markers to the map
+                                        for (var i = 0; i < markerCoordinates.length; i++) {
+                                            var coord = markerCoordinates[i];
+                                            var name = markerNames[i];
+                                            var marker = L.marker(coord).addTo(map);
+                                            var loss = markerLosses[i]; // Mengambil loss yang sesuai dengan indeks i
+                                            // console.log(name);
+                                            console.log(coord);
+                                            // console.log(loss);
+                                            marker.bindPopup('<b>' + name + '</b><br />Rata-rata Loss: ' + loss).openPopup();
+                                        }
 
                                         function onMapClick(e) {
                                             var popup = L.popup()
@@ -428,22 +415,101 @@ for (var i = 0; i < markerCoordinates.length; i++) {
                         <!-- End Maps -->
 
                         <!-- Chart -->
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-
-                                    <img src="/assets/img/ee-chart.png" alt="Chart Deforestation" width="1100"
-                                        height="500" style="justify-content: center; align-items: center" />
-
-                                    <!-- Bar Chart -->
-                                    <div id="reportsChart" style="width: auto"></div>
-
-                                    <!-- End Line Chart -->
-                                </div>
-                            </div>
+                        <div class="row">
+                          <div class="col-md-8 col-sm-12">
+                              <div class="card" style="min-height: 568px">
+                                  <div class="card-body">
+                                      <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
+  
+                                      <div>
+                                          <canvas id="barchart"></canvas>
+                                      </div>
+  
+                                      <script>
+                                          const ctx1 = document.getElementById('barchart');
+  
+                                          new Chart(ctx1, {
+                                              type: 'bar',
+                                              data: {
+                                                  labels: [
+                                                      @foreach ($yearsbar as $yearbar)
+                                                          '{{ $yearbar }}',
+                                                      @endforeach
+                                                  ],
+                                                  datasets: [{
+                                                      label: '# of Votes',
+                                                      data: [
+                                                          @foreach ($barcharts as $barchart)
+                                                              '{{ $barchart->avg_loss_year }}',
+                                                          @endforeach
+                                                      ],
+                                                      borderWidth: 1
+                                                  }]
+                                              },
+                                              options: {
+                                                  scales: {
+                                                      y: {
+                                                          beginAtZero: true
+                                                      }
+                                                  }
+                                              },
+                                          });
+                                      </script>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- End Chart -->
+  
+                          <!-- Chart -->
+                          <div class="col-md-4 col-sm-12 ">
+                              <div class="card" style="min-height: 568px">
+                                  <div class="card-body">
+                                      <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
+  
+                                      <div>
+                                        <canvas class="" style="max-width: 500px; max-height: 500px;" id="doughnutchart"></canvas>
+                                    </div>
+                                  
+                                    <script>
+                                        const ctx2 = document.getElementById('doughnutchart');
+                                    
+                                        new Chart(ctx2, {
+                                            type: 'pie',
+                                            data: {
+                                                labels: [
+                                                  @foreach ($doughnutlabels as $label)
+                                                          '{{ $label }}',
+                                                      @endforeach
+                                                ],
+                                                datasets: [{
+                                                    label: 'My First Dataset',
+                                                    data: [@foreach ($doughnutvalues as $doughnut)
+                                                              '{{ $doughnut }}',
+                                                          @endforeach],
+                                                    backgroundColor: [
+                                                      "rgb(255,193,0)",
+                                                      "rgb(255,154,0)",
+                                                      "rgb(255,116,0)",
+                                                      "rgb(255,77,0)",
+                                                      "rgb(255,0,0)"
+                                                    ],
+                                                    hoverOffset: 4
+                                                }]
+                                            },
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            },
+                                        });
+                                    </script>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- End Chart -->
                         </div>
-                        <!-- End Chart -->
 
                         <!-- Berita -->
                         <div class="col-12">

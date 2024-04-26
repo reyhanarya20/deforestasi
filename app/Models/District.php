@@ -14,4 +14,13 @@ class District extends Model
       'name',
       'region'
   ];
+
+  public function gfc()
+  {
+    return $this->belongsTo(Gfc::class);
+  }
+
+  public function ntl(){
+    return $this->belongsTo(Ntl::class);
+  }
 }

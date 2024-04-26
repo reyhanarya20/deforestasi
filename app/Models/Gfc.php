@@ -10,13 +10,13 @@ class Gfc extends Model
     use HasFactory;
 
     protected $fillable = [
-      'province_id',
+      'district_id',
       'year',
       'loss_year'
   ];
 
-  public function province()
+  public function district()
   {
-    return $this->belongsTo(Province::class);
+    return $this->belongsTo(District::class);
   }
 }

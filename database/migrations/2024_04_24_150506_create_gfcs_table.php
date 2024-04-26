@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('gfcs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('province_id')->constrained();
+            $table->foreignId('district_id')->constrained();
             $table->year('year');
-            $table->decimal('loss_year', 10, 3)->nullable();
+            $table->decimal('loss_year', 10, 7)->nullable();
             $table->timestamps();
         });
     }
