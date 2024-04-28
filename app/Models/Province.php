@@ -19,4 +19,9 @@ class Province extends Model
   {
     return $this->belongsTo(Gfc::class);
   }
+
+  public function district()
+  {
+    return $this->belongsTo(District::class);
+  }
 }

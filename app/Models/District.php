@@ -23,4 +23,8 @@ class District extends Model
   public function ntl(){
     return $this->belongsTo(Ntl::class);
   }
+
+  public function province(){
+    return $this->belongsTo(Province::class);
+  }
 }

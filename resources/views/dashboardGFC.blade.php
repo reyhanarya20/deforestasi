@@ -269,16 +269,15 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="#">Kalimantan Utara</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Kalimantan Barat</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Kalimantan Timur</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Kalimantan Tengah</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Kalimantan Selatan</a>
-                                                    </li>
+                                                    @foreach ($provinces as $province)
+                                                        <form
+                                                            action="{{ route('search-province-gfc', $province->name) }}"
+                                                            method="get">
+                                                            <li><button name="province_id" class="dropdown-item"
+                                                                    value="{{ $province->id }}">{{ $province->name }}</button>
+                                                            </li>
+                                                        </form>
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </div>
@@ -306,30 +305,15 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="#">2000</a></li>
-                                                    <li><a class="dropdown-item" href="#">2001</a></li>
-                                                    <li><a class="dropdown-item" href="#">2002</a></li>
-                                                    <li><a class="dropdown-item" href="#">2003</a></li>
-                                                    <li><a class="dropdown-item" href="#">2004</a></li>
-                                                    <li><a class="dropdown-item" href="#">2005</a></li>
-                                                    <li><a class="dropdown-item" href="#">2006</a></li>
-                                                    <li><a class="dropdown-item" href="#">2007</a></li>
-                                                    <li><a class="dropdown-item" href="#">2008</a></li>
-                                                    <li><a class="dropdown-item" href="#">2009</a></li>
-                                                    <li><a class="dropdown-item" href="#">2010</a></li>
-                                                    <li><a class="dropdown-item" href="#">2011</a></li>
-                                                    <li><a class="dropdown-item" href="#">2012</a></li>
-                                                    <li><a class="dropdown-item" href="#">2013</a></li>
-                                                    <li><a class="dropdown-item" href="#">2014</a></li>
-                                                    <li><a class="dropdown-item" href="#">2015</a></li>
-                                                    <li><a class="dropdown-item" href="#">2016</a></li>
-                                                    <li><a class="dropdown-item" href="#">2017</a></li>
-                                                    <li><a class="dropdown-item" href="#">2018</a></li>
-                                                    <li><a class="dropdown-item" href="#">2019</a></li>
-                                                    <li><a class="dropdown-item" href="#">2020</a></li>
-                                                    <li><a class="dropdown-item" href="#">2021</a></li>
-                                                    <li><a class="dropdown-item" href="#">2022</a></li>
-                                                    <li><a class="dropdown-item" href="#">2023</a></li>
+                                                  @foreach ($years as $year)
+                                                  <form
+                                                      action="{{ route('search-year-gfc', $year) }}"
+                                                      method="get">
+                                                      <li><button name="year" class="dropdown-item"
+                                                              value="{{ $year }}">{{ $year }}</button>
+                                                      </li>
+                                                  </form>
+                                              @endforeach
                                                 </ul>
                                             </div>
                                         </div>
@@ -416,99 +400,102 @@
 
                         <!-- Chart -->
                         <div class="row">
-                          <div class="col-md-8 col-sm-12">
-                              <div class="card" style="min-height: 568px">
-                                  <div class="card-body">
-                                      <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-  
-                                      <div>
-                                          <canvas id="barchart"></canvas>
-                                      </div>
-  
-                                      <script>
-                                          const ctx1 = document.getElementById('barchart');
-  
-                                          new Chart(ctx1, {
-                                              type: 'bar',
-                                              data: {
-                                                  labels: [
-                                                      @foreach ($yearsbar as $yearbar)
-                                                          '{{ $yearbar }}',
-                                                      @endforeach
-                                                  ],
-                                                  datasets: [{
-                                                      label: '# of Votes',
-                                                      data: [
-                                                          @foreach ($barcharts as $barchart)
-                                                              '{{ $barchart->avg_loss_year }}',
-                                                          @endforeach
-                                                      ],
-                                                      borderWidth: 1
-                                                  }]
-                                              },
-                                              options: {
-                                                  scales: {
-                                                      y: {
-                                                          beginAtZero: true
-                                                      }
-                                                  }
-                                              },
-                                          });
-                                      </script>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- End Chart -->
-  
-                          <!-- Chart -->
-                          <div class="col-md-4 col-sm-12 ">
-                              <div class="card" style="min-height: 568px">
-                                  <div class="card-body">
-                                      <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-  
-                                      <div>
-                                        <canvas class="" style="max-width: 500px; max-height: 500px;" id="doughnutchart"></canvas>
-                                    </div>
-                                  
-                                    <script>
-                                        const ctx2 = document.getElementById('doughnutchart');
-                                    
-                                        new Chart(ctx2, {
-                                            type: 'pie',
-                                            data: {
-                                                labels: [
-                                                  @foreach ($doughnutlabels as $label)
-                                                          '{{ $label }}',
-                                                      @endforeach
-                                                ],
-                                                datasets: [{
-                                                    label: 'My First Dataset',
-                                                    data: [@foreach ($doughnutvalues as $doughnut)
-                                                              '{{ $doughnut }}',
-                                                          @endforeach],
-                                                    backgroundColor: [
-                                                      "rgb(255,193,0)",
-                                                      "rgb(255,154,0)",
-                                                      "rgb(255,116,0)",
-                                                      "rgb(255,77,0)",
-                                                      "rgb(255,0,0)"
+                            <div class="col-md-8 col-sm-12">
+                                <div class="card" style="min-height: 568px">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
+
+                                        <div>
+                                            <canvas id="barchart"></canvas>
+                                        </div>
+
+                                        <script>
+                                            const ctx1 = document.getElementById('barchart');
+
+                                            new Chart(ctx1, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: [
+                                                        @foreach ($yearsbar as $yearbar)
+                                                            '{{ $yearbar }}',
+                                                        @endforeach
                                                     ],
-                                                    hoverOffset: 4
-                                                }]
-                                            },
-                                            options: {
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
+                                                    datasets: [{
+                                                        label: '# of Votes',
+                                                        data: [
+                                                            @foreach ($barcharts as $barchart)
+                                                                '{{ $barchart->avg_loss_year }}',
+                                                            @endforeach
+                                                        ],
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
                                                     }
-                                                }
-                                            },
-                                        });
-                                    </script>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- End Chart -->
+                                                },
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Chart -->
+
+                            <!-- Chart -->
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="card" style="min-height: 568px">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
+
+                                        <div>
+                                            <canvas class="" style="max-width: 500px; max-height: 500px;"
+                                                id="doughnutchart"></canvas>
+                                        </div>
+
+                                        <script>
+                                            const ctx2 = document.getElementById('doughnutchart');
+
+                                            new Chart(ctx2, {
+                                                type: 'pie',
+                                                data: {
+                                                    labels: [
+                                                        @foreach ($doughnutlabels as $label)
+                                                            '{{ $label }}',
+                                                        @endforeach
+                                                    ],
+                                                    datasets: [{
+                                                        label: 'My First Dataset',
+                                                        data: [
+                                                            @foreach ($doughnutvalues as $doughnut)
+                                                                '{{ $doughnut }}',
+                                                            @endforeach
+                                                        ],
+                                                        backgroundColor: [
+                                                            "rgb(255,193,0)",
+                                                            "rgb(255,154,0)",
+                                                            "rgb(255,116,0)",
+                                                            "rgb(255,77,0)",
+                                                            "rgb(255,0,0)"
+                                                        ],
+                                                        hoverOffset: 4
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                },
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Chart -->
                         </div>
 
                         <!-- Berita -->
