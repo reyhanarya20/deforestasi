@@ -6,12 +6,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
     <title>Dashboard - Deforestation</title>
+    <link rel="icon" href="/assets/img/treebagus-removebg-preview.png">
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon" />
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+    <!-- <link href="/assets/img/favicon.png" rel="icon" /> -->
+    <!-- <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" /> -->
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect" />
@@ -218,13 +219,12 @@
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-lightbulb"></i>
+                                            <i class="bi bi-lightbulb text-warning"></i>
                                             <!-- EDIT -->
                                         </div>
                                         <div class="ps-3">
-                                            <h6>30.2 kha</h6>
-                                            <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">decrease</span>
+                                            <h6 class="text-warning">1858.60%</h6>
+                                             <span class="text-muted small pt-2 ps-1">increase</span>
                                         </div>
                                     </div>
                                 </div>
@@ -395,35 +395,119 @@
 
                         <!-- Chart -->
                         <div class="col-12">
+                            
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Chart <span>/Light Intensity</span></h5>
+                                    <h5 class="card-title">Light Distribution <span>/Light Intensity</span></h5>
 
-                                    <img src="/assets/img/ee-chart.png" alt="Chart Deforestation" width="1100"
-                                        height="500" style="justify-content: center; align-items: center" />
-
-                                    <!-- Bar Chart -->
-                                    <div id="reportsChart" style="width: auto"></div>
-
-                                    <!-- End Line Chart -->
+                                    <!-- <img src="/assets/img/tableau ntl sementara.png" alt="data NTL" width="900" height="500" style="justify-content: center; align-items: center" /> -->
+                                    
+                                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="8" aria-label="Slide 9"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="9" aria-label="Slide 10"></button>
+                                            </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/assets/img/2013.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2013</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2014.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2014</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2015.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2015</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2016.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2016</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2017.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2017</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2018.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2018</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2019.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2019</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2020.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2020</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2021.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2021</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2022.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2022</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2023.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2023</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+                                        
                                 </div>
                             </div>
                         </div>
                         <!-- End Chart -->
 
                         <!-- Berita -->
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Berita</h5>
 
-                                    <!-- Bar Chart -->
-                                    <div id="reportsChart" style="width: auto"></div>
-
-                                    <!-- End Line Chart -->
+                                    
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End Berita -->
                     </div>
                 </div>

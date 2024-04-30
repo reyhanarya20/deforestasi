@@ -32,11 +32,12 @@ class GFCController extends Controller
       ->groupBy('year')
       ->get();
       $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
-      ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'))
-      ->groupBy('districts.id')
-      ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
-      ->take(5)
-      ->get();
+    ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'), 'districts.id')
+    ->groupBy('districts.name', 'districts.id') // Menambahkan kolom 'districts.id' ke dalam GROUP BY
+    ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc')
+    ->take(5)
+    ->get();
+
 
     $doughnutvalues = $doughnutData->pluck('avg_loss_year');
     $doughnutlabels = $doughnutData->pluck('label');
