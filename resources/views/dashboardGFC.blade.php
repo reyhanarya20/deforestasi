@@ -180,7 +180,7 @@
             <div class="row">
                 <!-- Left side columns -->
                 <!-- About GFC -->
-                <div class="col-xxl-12 col-md-6">
+                <div class="col-xxl-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">About GFC</h5>
@@ -206,344 +206,295 @@
                 <div class="col-lg-12">
                     <div class="row">
                         <!-- Forest Loss Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card forestloss-card">
-                                <!-- <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start">
-                        <h6>Filter</h6>
-                      </li>
-
-                      <li><a class="dropdown-item" href="#">GFC</a></li>
-                      <li><a class="dropdown-item" href="#">NTL</a></li>
-                    </ul>
-                  </div> -->
-
+                        <div class="col-md-5">
+                            <div class="card info-card forestloss-card" style="height:202px;">
                                 <div class="card-body">
                                     <h5 class="card-title">Forest Loss <span>| GFC</span></h5>
 
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center mt-4">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-arrow-down-circle-fill"></i>
                                             <!-- EDIT -->
                                         </div>
                                         <div class="ps-3">
-                                            <h6 class="text-danger" >30.2 kha Loss</h6>
-                                            
+                                            <h6 class="text-danger">{{ number_format($total, 3, ',', '.') }} kha Loss</h6>
+                                            <small>Menampilkan data {{ $province_name }} {{ $year }}</small>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Forest Loss Card -->
 
-                        <!-- Filter Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card filter-card">
-                                <!-- <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start">
-                        <h6>Filter</h6>
-                      </li>
-
-                      <li><a class="dropdown-item" href="#">GFC</a></li>
-                      <li><a class="dropdown-item" href="#">NTL</a></li>
-                    </ul>
-                  </div> -->
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Filter <span>| Provinsi</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-x-diamond"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <div class="dropdown">
-                                                <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter"
-                                                    href="#" role="button" id="dropdownMenuLink"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    @foreach ($provinces as $province)
-                                                        <form
-                                                            action="{{ route('search-province-gfc', $province->name) }}"
-                                                            method="get">
-                                                            <li><button name="province_id" class="dropdown-item"
-                                                                    value="{{ $province->id }}">{{ $province->name }}</button>
-                                                            </li>
-                                                        </form>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <!-- End Forest Gain Card -->
 
                         <!-- Filter Card -->
-                        <div class="col-xxl-4 col-xl-12">
+                        <div class="col-md-7">
                             <div class="card info-card filter-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Filter <span>| This Year</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-filter-circle-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <div class="dropdown">
-                                                <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter"
-                                                    href="#" role="button" id="dropdownMenuLink"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  @foreach ($years as $year)
-                                                  <form
-                                                      action="{{ route('search-year-gfc', $year) }}"
-                                                      method="get">
-                                                      <li><button name="year" class="dropdown-item"
-                                                              value="{{ $year }}">{{ $year }}</button>
-                                                      </li>
-                                                  </form>
-                                              @endforeach
-                                                </ul>
+                                    <h5 class="card-title">Filter <span>| Provinsi & Tahun</span></h5>
+                                    <form action="{{ route('filter-gfc') }}" method="get">
+                                        <div class="gap-3">
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="province_id" class="form-label">Provinsi</label>
+                                                    <select class="form-select" aria-label="Large select example"
+                                                        name="province_id">
+                                                        <option value="" selected>Pilih provinsi</option>
+                                                        @foreach ($provinces as $province)
+                                                            <option value="{{ $province->id }}">
+                                                                {{ $province->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="province_id" class="form-label">Tahun</label>
+                                                    <select class="form-select" aria-label="Large select example"
+                                                        name="year">
+                                                        <option value="" selected>Pilih Tahun</option>
+                                                        @foreach ($years as $year)
+                                                            <option value="{{ $year }}">
+                                                                {{ $year }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary">
+                                                Simpan Filter
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Filter Card -->
+                    </div>
+                    <!-- End Filter Card -->
 
-                        <!-- Maps -->
-                        <div class="col-12">
-                            <div class="card">
+                    <!-- Maps -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Maps <span>/GFC</span></h5>
+
+                                <!-- Line Chart -->
+                                {{-- <div id="reportsChart" style="width: auto"></div> --}}
+                                <div id="map"></div>
+
+                                <script>
+                                    var map = L.map('map').fitWorld().setView([-4.8877000, 116.3197000], 5);
+                                    var tiles = L.tileLayer(
+                                        'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXJpcHJhdGFtYSIsImEiOiJjbGZubmdib3UwbnRxM3Bya3M1NGE4OHRsIn0.oxYqbBbaBwx0dHLguu5gOA', {
+                                            maxZoom: 18,
+                                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+                                                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                                            id: 'mapbox/streets-v11',
+                                            tileSize: 512,
+                                            zoomOffset: -1
+                                        }).addTo(map);
+
+                                    // Array of marker coordinates
+                                    var markerCoordinates = [
+
+                                        @foreach ($coordinates as $cor)
+                                            [{{ $cor->lat }}, {{ $cor->long }}],
+                                        @endforeach
+
+                                    ];
+
+                                    // Array of marker names
+                                    var markerNames = [
+                                        @foreach ($coordinates as $cor)
+                                            "{{ $cor->name }}",
+                                        @endforeach
+                                    ];
+
+                                    // Array of total losses
+                                    var markerLosses = [
+                                        @foreach ($cordinateslos as $cor)
+                                            "{{ $cor->total_loss }}",
+                                        @endforeach
+                                    ];
+
+                                    // Adding markers to the map
+                                    for (var i = 0; i < markerCoordinates.length; i++) {
+                                        var coord = markerCoordinates[i];
+                                        var name = markerNames[i];
+                                        var marker = L.marker(coord).addTo(map);
+                                        var loss = markerLosses[i]; // Mengambil loss yang sesuai dengan indeks i
+                                        // console.log(name);
+                                        console.log(coord);
+                                        // console.log(loss);
+                                        marker.bindPopup('<b>' + name + '</b><br />Rata-rata Loss: ' + loss).openPopup();
+                                    }
+
+                                    function onMapClick(e) {
+                                        var popup = L.popup()
+                                            .setLatLng(e.latlng)
+                                            .setContent('You clicked the map at ' + e.latlng.toString())
+                                            .openOn(map);
+                                    }
+
+                                    map.on('click', onMapClick);
+                                </script>
+                                <!-- End Line Chart -->
+
+                                <!-- Tempatkan elemen peta -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Maps -->
+
+                    <!-- Chart -->
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="card" style="min-height: 568px">
                                 <div class="card-body">
-                                    <h5 class="card-title">Maps <span>/GFC</span></h5>
+                                    <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
 
-                                    <!-- Line Chart -->
-                                    {{-- <div id="reportsChart" style="width: auto"></div> --}}
-                                    <div id="map"></div>
+                                    <div>
+                                        <canvas id="barchart"></canvas>
+                                    </div>
 
                                     <script>
-                                        var map = L.map('map').fitWorld().setView([-4.8877000, 116.3197000], 5);
-                                        var tiles = L.tileLayer(
-                                            'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXJpcHJhdGFtYSIsImEiOiJjbGZubmdib3UwbnRxM3Bya3M1NGE4OHRsIn0.oxYqbBbaBwx0dHLguu5gOA', {
-                                                maxZoom: 18,
-                                                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                                                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                                                id: 'mapbox/streets-v11',
-                                                tileSize: 512,
-                                                zoomOffset: -1
-                                            }).addTo(map);
+                                        const ctx1 = document.getElementById('barchart');
 
-                                        // Array of marker coordinates
-                                        var markerCoordinates = [
-
-                                            @foreach ($coordinates as $cor)
-                                                [{{ $cor->lat }}, {{ $cor->long }}],
-                                            @endforeach
-
-                                        ];
-
-                                        // Array of marker names
-                                        var markerNames = [
-                                            @foreach ($coordinates as $cor)
-                                                "{{ $cor->name }}",
-                                            @endforeach
-                                        ];
-
-                                        // Array of total losses
-                                        var markerLosses = [
-                                            @foreach ($cordinateslos as $cor)
-                                                "{{ $cor->total_loss }}",
-                                            @endforeach
-                                        ];
-
-                                        // Adding markers to the map
-                                        for (var i = 0; i < markerCoordinates.length; i++) {
-                                            var coord = markerCoordinates[i];
-                                            var name = markerNames[i];
-                                            var marker = L.marker(coord).addTo(map);
-                                            var loss = markerLosses[i]; // Mengambil loss yang sesuai dengan indeks i
-                                            // console.log(name);
-                                            console.log(coord);
-                                            // console.log(loss);
-                                            marker.bindPopup('<b>' + name + '</b><br />Rata-rata Loss: ' + loss).openPopup();
-                                        }
-
-                                        function onMapClick(e) {
-                                            var popup = L.popup()
-                                                .setLatLng(e.latlng)
-                                                .setContent('You clicked the map at ' + e.latlng.toString())
-                                                .openOn(map);
-                                        }
-
-                                        map.on('click', onMapClick);
+                                        new Chart(ctx1, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: [
+                                                    @foreach ($yearsbar as $yearbar)
+                                                        '{{ $yearbar }}',
+                                                    @endforeach
+                                                ],
+                                                datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [
+                                                        @foreach ($barcharts as $barchart)
+                                                            '{{ $barchart->avg_loss_year }}',
+                                                        @endforeach
+                                                    ],
+                                                    borderWidth: 1
+                                                }]
+                                            },
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            },
+                                        });
                                     </script>
-                                    <!-- End Line Chart -->
-
-                                    <!-- Tempatkan elemen peta -->
                                 </div>
                             </div>
                         </div>
-
-                        <!-- End Maps -->
+                        <!-- End Chart -->
 
                         <!-- Chart -->
-                        <div class="row">
-                            <div class="col-md-8 col-sm-12">
-                                <div class="card" style="min-height: 568px">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-
-                                        <div>
-                                            <canvas id="barchart"></canvas>
-                                        </div>
-
-                                        <script>
-                                            const ctx1 = document.getElementById('barchart');
-
-                                            new Chart(ctx1, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: [
-                                                        @foreach ($yearsbar as $yearbar)
-                                                            '{{ $yearbar }}',
-                                                        @endforeach
-                                                    ],
-                                                    datasets: [{
-                                                        label: '# of Votes',
-                                                        data: [
-                                                            @foreach ($barcharts as $barchart)
-                                                                '{{ $barchart->avg_loss_year }}',
-                                                            @endforeach
-                                                        ],
-                                                        borderWidth: 1
-                                                    }]
-                                                },
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
-                                                    }
-                                                },
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Chart -->
-
-                            <!-- Chart -->
-                            <div class="col-md-4 col-sm-12 ">
-                                <div class="card" style="min-height: 568px">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-
-                                        <div>
-                                            <canvas class="" style="max-width: 500px; max-height: 500px;"
-                                                id="doughnutchart"></canvas>
-                                        </div>
-
-                                        <script>
-                                            const ctx2 = document.getElementById('doughnutchart');
-
-                                            new Chart(ctx2, {
-                                                type: 'pie',
-                                                data: {
-                                                    labels: [
-                                                        @foreach ($doughnutlabels as $label)
-                                                            '{{ $label }}',
-                                                        @endforeach
-                                                    ],
-                                                    datasets: [{
-                                                        label: 'My First Dataset',
-                                                        data: [
-                                                            @foreach ($doughnutvalues as $doughnut)
-                                                                '{{ $doughnut }}',
-                                                            @endforeach
-                                                        ],
-                                                        backgroundColor: [
-                                                            "rgb(255,193,0)",
-                                                            "rgb(255,154,0)",
-                                                            "rgb(255,116,0)",
-                                                            "rgb(255,77,0)",
-                                                            "rgb(255,0,0)"
-                                                        ],
-                                                        hoverOffset: 4
-                                                    }]
-                                                },
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
-                                                    }
-                                                },
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Chart -->
-                        </div>
-
-                        <!-- Berita -->
-                        <div class="col-12">
-                            <div class="card">
+                        <div class="col-md-4 col-sm-12 ">
+                            <div class="card" style="min-height: 568px">
                                 <div class="card-body">
-                                    <h5 class="card-title">Berita</h5>
+                                    <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <!-- Whole Indonesia -->
-                                            <iframe width="520" height="690" frameborder="0"
-                                                src="https://www.globalforestwatch.org/embed/widget/treeLoss/country/IDN"></iframe>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- ANNUAL TREE COVER LOSS BY DOMINANT DRIVER IN INDONESIA -->
-                                            <iframe width="520" height="690" frameborder="0"
-                                                src="https://www.globalforestwatch.org/embed/widget/treeLossTsc/country/IDN"></iframe>
-                                        </div>
+                                    <div>
+                                        <canvas class="" style="max-width: 500px; max-height: 500px;"
+                                            id="doughnutchart"></canvas>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <!-- COMPONENTS OF NET CHANGE IN TREE COVER IN INDONESIA -->
-                                            <iframe width="520" height="690" frameborder="0"
-                                                src="https://www.globalforestwatch.org/embed/widget/netChange/country/IDN"></iframe>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- TREE COVER BY TYPE IN INDONESIA -->
-                                            <iframe width="520" height="690" frameborder="0"
-                                                src="https://www.globalforestwatch.org/embed/widget/treeCover/country/IDN"></iframe>
-                                        </div>
-                                    </div>
+                                    <script>
+                                        const ctx2 = document.getElementById('doughnutchart');
 
-
-
-
-                                    <!-- Bar Chart -->
-                                    <div id="reportsChart" style="width: auto"></div>
-
-                                    <!-- End Line Chart -->
+                                        new Chart(ctx2, {
+                                            type: 'pie',
+                                            data: {
+                                                labels: [
+                                                    @foreach ($doughnutlabels as $label)
+                                                        '{{ $label }}',
+                                                    @endforeach
+                                                ],
+                                                datasets: [{
+                                                    label: 'My First Dataset',
+                                                    data: [
+                                                        @foreach ($doughnutvalues as $doughnut)
+                                                            '{{ $doughnut }}',
+                                                        @endforeach
+                                                    ],
+                                                    backgroundColor: [
+                                                        "rgb(255,193,0)",
+                                                        "rgb(255,154,0)",
+                                                        "rgb(255,116,0)",
+                                                        "rgb(255,77,0)",
+                                                        "rgb(255,0,0)"
+                                                    ],
+                                                    hoverOffset: 4
+                                                }]
+                                            },
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            },
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Berita -->
+                        <!-- End Chart -->
                     </div>
+
+                    <!-- Berita -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Berita</h5>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Whole Indonesia -->
+                                        <iframe width="520" height="690" frameborder="0"
+                                            src="https://www.globalforestwatch.org/embed/widget/treeLoss/country/IDN"></iframe>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- ANNUAL TREE COVER LOSS BY DOMINANT DRIVER IN INDONESIA -->
+                                        <iframe width="520" height="690" frameborder="0"
+                                            src="https://www.globalforestwatch.org/embed/widget/treeLossTsc/country/IDN"></iframe>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- COMPONENTS OF NET CHANGE IN TREE COVER IN INDONESIA -->
+                                        <iframe width="520" height="690" frameborder="0"
+                                            src="https://www.globalforestwatch.org/embed/widget/netChange/country/IDN"></iframe>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- TREE COVER BY TYPE IN INDONESIA -->
+                                        <iframe width="520" height="690" frameborder="0"
+                                            src="https://www.globalforestwatch.org/embed/widget/treeCover/country/IDN"></iframe>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- Bar Chart -->
+                                <div id="reportsChart" style="width: auto"></div>
+
+                                <!-- End Line Chart -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita -->
                 </div>
-                <!-- End Left side columns -->
+            </div>
+            <!-- End Left side columns -->
             </div>
         </section>
     </main>

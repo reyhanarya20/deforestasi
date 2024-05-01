@@ -19,8 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboardNTL', [NtlController::class, 'index'])->name('ntldashboard');
     Route::get('/dashboardNTL/search/kabupaten/{name}', [NtlController::class, 'searchDistrict'])->name('search-district-ntl');
     Route::get('/dashboardNTL/search/provinsi/{name}', [NtlController::class, 'searchProvince'])->name('search-province-ntl');
-    Route::get('/dashboardGFC/search/provinsi/{name}', [GfcController::class, 'searchProvince'])->name('search-province-gfc');
-    Route::get('/dashboardGFC/search/year/{year}', [GfcController::class, 'searchYear'])->name('search-year-gfc');
+    // Route::get('/dashboardGFC/search/provinsi/{name}', [GfcController::class, 'searchProvince'])->name('search-province-gfc');
+    // Route::get('/dashboardGFC/search/year/{year}', [GfcController::class, 'searchYear'])->name('search-year-gfc');
+    Route::get('/dashboardGFC/filter', [GfcController::class, 'filter'])->name('filter-gfc');
+
     Route::get('/myprofile', [MyprofileController::class, 'index'])->name('myprofile');
 });
 
