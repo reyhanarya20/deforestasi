@@ -43,7 +43,7 @@ class NtlController extends Controller
 
     $doughnutData = Ntl::join('districts', 'districts.id', '=', 'ntls.district_id')
       ->select('districts.name as label', DB::raw('AVG(ntls.mean_radiance) as avg_mean_radiance'))
-      ->groupBy('districts.id')
+      ->groupBy('districts.name', 'district_id') // Memasukkan 'districts.name' ke dalam GROUP BY
       ->orderBy(DB::raw('AVG(ntls.mean_radiance)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
       ->take(5)
       ->get();
@@ -93,7 +93,7 @@ class NtlController extends Controller
     $doughnutData = Ntl::join('districts', 'districts.id', '=', 'ntls.district_id')
       ->select('districts.name as label', DB::raw('AVG(ntls.mean_radiance) as avg_mean_radiance'))
       ->where('district_id', $distric_id)
-      ->groupBy('districts.id')
+      ->groupBy('districts.name', 'district_id') // Memasukkan 'districts.name' ke dalam GROUP BY
       ->orderBy(DB::raw('AVG(ntls.mean_radiance)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
       ->take(5)
       ->get();
@@ -154,7 +154,7 @@ class NtlController extends Controller
     $doughnutData = Ntl::join('districts', 'districts.id', '=', 'ntls.district_id')
       ->select('districts.name as label', DB::raw('AVG(ntls.mean_radiance) as avg_mean_radiance'))
       ->where('districts.province_id', $province_id)
-      ->groupBy('districts.id')
+      ->groupBy('districts.name', 'district_id') // Memasukkan 'districts.name' ke dalam GROUP BY
       ->orderBy(DB::raw('AVG(ntls.mean_radiance)'), 'desc')
       ->take(5)
       ->get();

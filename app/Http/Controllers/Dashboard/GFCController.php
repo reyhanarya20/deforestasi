@@ -44,12 +44,13 @@ class GFCController extends Controller
     $yearsDou = Gfc::distinct()
       ->pluck('year');
 
-    $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
+      $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
       ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'))
-      ->groupBy('districts.id')
-      ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
+      ->groupBy('districts.name', 'district_id') // Memasukkan 'districts.name' ke dalam GROUP BY
+      ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc')
       ->take(5)
       ->get();
+
       $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
     ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'), 'districts.id')
     ->groupBy('districts.name', 'districts.id') // Menambahkan kolom 'districts.id' ke dalam GROUP BY
@@ -123,7 +124,7 @@ class GFCController extends Controller
     $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
       ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'))
       ->where('districts.province_id', $province_id)
-      ->groupBy('districts.id')
+      ->groupBy('districts.name', 'district_id') // Memasukkan 'districts.name' ke dalam GROUP BY
       ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
       ->take(5)
       ->get();
@@ -193,7 +194,7 @@ class GFCController extends Controller
     $doughnutData = Gfc::join('districts', 'districts.id', '=', 'gfcs.district_id')
       ->select('districts.name as label', DB::raw('AVG(gfcs.loss_year) as avg_loss_year'))
       ->where('year', $year)
-      ->groupBy('districts.id')
+      ->groupBy('districts.name', 'district_id') // Memasukkan 'districts.name' ke dalam GROUP BY
       ->orderBy(DB::raw('AVG(gfcs.loss_year)'), 'desc') // Mengurutkan berdasarkan rata-rata kehilangan tahun secara menurun
       ->take(5)
       ->get();

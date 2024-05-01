@@ -216,7 +216,7 @@
                   </div> -->
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Light Intensity <span>| NTL</span></h5>
+                                    <h5 class="card-title">Average Light Intensity <span>| NTL</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -372,7 +372,7 @@
                         <!-- End Maps -->
 
                         <!-- Chart -->
-<<<<<<< HEAD
+
                         <!-- Chart -->
                         <div class="row">
                           <div class="col-md-8 col-sm-12">
@@ -468,12 +468,12 @@
                               </div>
                           </div>
                           <!-- End Chart -->
-=======
+
                         <div class="col-12">
                             
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Light Distribution <span>/Light Intensity</span></h5>
+                                    <h5 class="card-title">Light Distribution | Prediction <span>/Light Intensity</span></h5>
 
                                     <!-- <img src="/assets/img/tableau ntl sementara.png" alt="data NTL" width="900" height="500" style="justify-content: center; align-items: center" /> -->
                                     
@@ -489,6 +489,7 @@
                                                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="7" aria-label="Slide 8"></button>
                                                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="8" aria-label="Slide 9"></button>
                                                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="9" aria-label="Slide 10"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="10" aria-label="Slide 11"></button>
                                             </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -557,6 +558,12 @@
         <p>2023</p>
       </div>
     </div>
+    <div class="carousel-item">
+      <img src="/assets/img/2024.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>2024</p>
+      </div>
+    </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -570,7 +577,7 @@
                                         
                                 </div>
                             </div>
->>>>>>> d628cf166ca36414a59bfc7e5cc9c1c5bf20486a
+
                         </div>
                         <!-- End Chart -->
 
