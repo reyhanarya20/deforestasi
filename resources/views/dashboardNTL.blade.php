@@ -262,38 +262,38 @@
                                                         <option value="" selected>Pilih Kabupaten</option>
                                                     </select>
                                                 </div>
-                                              
-                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-                                                        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-                                                        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                                                    <script>
-                                                        $(document).ready(function() {
-                                                            $('#province-dropdown').on('change', function() {
-                                                                var idProvince = $(this).val();
-                                                                $("#city-dropdown").html('');
-                                                                $.ajax({
-                                                                    url: "{{ url('api/fetch-cities') }}",
-                                                                    type: "POST",
-                                                                    data: {
-                                                                        province_id: idProvince,
-                                                                        _token: '{{ csrf_token() }}'
-                                                                    },
-                                                                    dataType: 'json',
-                                                                    success: function(res) {
-                                                                        $('#city-dropdown').html('<option value="">Kabupaten</option>');
-                                                                        $.each(res.cities, function(key, value) {
-                                                                            $("#city-dropdown").append('<option value="' + value.id +
-                                                                                '">' + value.name + '</option>');
-                                                                        });
-                                                                    },
-                                                                    error: function(xhr, status, error) {
-                                                                        console.error(xhr.responseText);
-                                                                    }
-                                                                });
+
+                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+                                                    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+                                                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                                                <script>
+                                                    $(document).ready(function() {
+                                                        $('#province-dropdown').on('change', function() {
+                                                            var idProvince = $(this).val();
+                                                            $("#city-dropdown").html('');
+                                                            $.ajax({
+                                                                url: "{{ url('api/fetch-cities') }}",
+                                                                type: "POST",
+                                                                data: {
+                                                                    province_id: idProvince,
+                                                                    _token: '{{ csrf_token() }}'
+                                                                },
+                                                                dataType: 'json',
+                                                                success: function(res) {
+                                                                    $('#city-dropdown').html('<option value="">Kabupaten</option>');
+                                                                    $.each(res.cities, function(key, value) {
+                                                                        $("#city-dropdown").append('<option value="' + value.id +
+                                                                            '">' + value.name + '</option>');
+                                                                    });
+                                                                },
+                                                                error: function(xhr, status, error) {
+                                                                    console.error(xhr.responseText);
+                                                                }
                                                             });
                                                         });
-                                                    </script>
-                                              
+                                                    });
+                                                </script>
+
                                             </div>
                                         </div>
                                         <div class="d-grid">
@@ -492,136 +492,46 @@
                                         <div id="carouselExampleDark" class="carousel carousel-dark slide"
                                             data-bs-ride="carousel">
                                             <div class="carousel-indicators">
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="0" class="active" aria-current="true"
-                                                    aria-label="Slide 1"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="4" aria-label="Slide 5"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="5" aria-label="Slide 6"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="6" aria-label="Slide 7"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="7" aria-label="Slide 8"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="8" aria-label="Slide 9"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="9" aria-label="Slide 10"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark"
-                                                    data-bs-slide-to="10" aria-label="Slide 11"></button>
+                                                @foreach ($images as $key => $item)
+                                                    <button type="button" data-bs-target="#carouselExampleDark"
+                                                        data-bs-slide-to="{{ $key }}"
+                                                        class="{{ $key == 0 ? 'active' : '' }}"
+                                                        aria-current="true"
+                                                        aria-label="Slide {{ $key + 1 }}"></button>
+                                                @endforeach
                                             </div>
                                             <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img src="/assets/img/2013.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2013</p>
+                                                @foreach ($images as $key => $item)
+                                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                                        <img src="{{ url('images/ntl/' . $item->path) }}.png"
+                                                            class="d-block w-100" alt="{{ $item->name }}">
+                                                        <div class="carousel-caption d-none d-md-block">
+                                                            <p>{{ $item->year }}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2014.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2014</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2015.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2015</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2016.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2016</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2017.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2017</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2018.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2018</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2019.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2019</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2020.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2020</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2021.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2021</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2022.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2022</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2023.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2023</p>
-                                                    </div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/assets/img/2024.png" class="d-block w-100"
-                                                        alt="...">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <p>2024</p>
-                                                    </div>
-                                                </div>
+                                                @endforeach
                                             </div>
-                                            <button class="carousel-control-prev" type="button"
-                                                data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button"
-                                                data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
                                         </div>
-
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
                                     </div>
+
                                 </div>
-
                             </div>
-                            <!-- End Chart -->
 
-                            <!-- Berita -->
-                            <!-- <div class="col-12">
+                        </div>
+                        <!-- End Chart -->
+
+                        <!-- Berita -->
+                        <!-- <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Berita</h5>
@@ -630,11 +540,11 @@
                                 </div>
                             </div>
                         </div> -->
-                            <!-- End Berita -->
-                        </div>
+                        <!-- End Berita -->
                     </div>
-                    <!-- End Left side columns -->
                 </div>
+                <!-- End Left side columns -->
+            </div>
         </section>
     </main>
     <!-- End #main -->

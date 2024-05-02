@@ -462,6 +462,51 @@
                         <!-- End Chart -->
                     </div>
 
+                    <div class="col-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Loss Forest | Prediction</h5>
+
+                                <!-- <img src="/assets/img/tableau ntl sementara.png" alt="data NTL" width="900" height="500" style="justify-content: center; align-items: center" /> -->
+
+                                <div id="carouselExampleDark" class="carousel carousel-dark slide"
+                                    data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        @foreach ($images as $key => $item)
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="{{ $key }}"
+                                                class="{{ $key == 0 ? 'active' : '' }}" aria-current="true"
+                                                aria-label="Slide {{ $key + 1 }}"></button>
+                                        @endforeach
+                                    </div>
+                                    <div class="carousel-inner">
+                                        @foreach ($images as $key => $item)
+                                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                                <img src="{{ url('images/ntl/' . $item->path) }}.png"
+                                                    class="d-block w-100" alt="{{ $item->name }}">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <p>{{ $item->year }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <!-- Berita -->
                     <div class="col-12">
                         <div class="card">

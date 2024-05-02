@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\Gfc;
+use App\Models\Image;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,9 @@ class GFCController extends Controller
     $districts = District::with([
       'gfc'
     ])->get();
+
+    $images = Image::where('type', 'gfc')->orderBy('year', 'desc')->get();
+
 
     $total = Gfc::sum('loss_year');
 
@@ -67,6 +71,7 @@ class GFCController extends Controller
 
     // Mengirimkan data ke view 'dashboardGFC' bersama dengan total loss per provinsi
     return view('dashboardGFC', [
+      'images' => $images,
       'total' => $total,
       'districts' => $districts,
       'provinces' => $provinces,
@@ -81,12 +86,14 @@ class GFCController extends Controller
     ]);
   }
 
-  
+
   public function filter(Request $request)
   {
     $province_id = $request->province_id;
     $year = $request->year;
     $province_name = Province::where('id', $province_id)->value('name');
+
+    $images = Image::where('type', 'ntl')->orderBy('year', 'desc')->get();
 
 
     if (!$province_id) {
@@ -148,6 +155,7 @@ class GFCController extends Controller
 
       // Mengirimkan data ke view 'dashboardGFC' bersama dengan total loss per provinsi
       return view('dashboardGFC', [
+        'images' => $images,
         'province_name' => $province_name,
         'year' => $year,
         'years' => $years,
@@ -184,13 +192,13 @@ class GFCController extends Controller
       $cordinates = District::with([
         'gfc'
       ])->where('province_id', $province_id)->get();
-  
+
       $cordinateslos = District::join('gfcs', 'districts.id', '=', 'gfcs.district_id')
         ->select('districts.id', DB::raw('SUM(gfcs.loss_year) as total_loss'))
         ->groupBy('districts.id')
         ->get();
 
-        // dd($cordinateslos);
+      // dd($cordinateslos);
 
       $yearsBar = Gfc::join('districts', 'gfcs.district_id', '=', 'districts.id')
         ->distinct()
@@ -223,6 +231,7 @@ class GFCController extends Controller
 
       // Mengirimkan data ke view 'dashboardGFC' bersama dengan total loss per provinsi
       return view('dashboardGFC', [
+        'images' => $images,
         'province_name' => $province_name,
         'year' => $year,
         'years' => $years,
@@ -304,8 +313,9 @@ class GFCController extends Controller
 
     // Mengirimkan data ke view 'dashboardGFC' bersama dengan total loss per provinsi
     return view('dashboardGFC', [
+      'images' => $images,
       'province_name' => $province_name,
-        'year' => $year,
+      'year' => $year,
       'years' => $years,
       'total' => $total,
       'districts' => $districts,

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\Ntl;
 use App\Models\Province;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,8 @@ class NtlController extends Controller
   public function index()
   {
     $total = Ntl::avg('mean_radiance');
+
+    $images = Image::where('type', 'ntl')->orderBy('year', 'desc')->get();
 
     $districts = District::with([
       'ntl'
@@ -54,6 +57,7 @@ class NtlController extends Controller
     $doughnutlabels = $doughnutData->pluck('label');
 
     return view('dashboardNTL', [
+      'images' => $images,
       'total' => $total,
       'districts' => $districts,
       'provinces' => $provinces,
@@ -80,6 +84,8 @@ class NtlController extends Controller
     $district_id = $request->district_id;
     $province_name = Province::where('id', $province_id)->value('name');
     $district_name = District::where('id', $district_id)->value('name');
+
+    $images = Image::where('type', 'ntl')->orderBy('year', 'desc')->get();
 
 
     if (!$district_id) {
@@ -127,6 +133,7 @@ class NtlController extends Controller
       $doughnutlabels = $doughnutData->pluck('label');
 
       return view('dashboardNTL', [
+        'images' => $images,
         'total' => $total,
         'province_name' => $province_name,
         'district_name' => $district_name,
@@ -180,6 +187,7 @@ class NtlController extends Controller
     $doughnutlabels = $doughnutData->pluck('label');
 
     return view('dashboardNTL', [
+      'images' => $images,
       'total' => $total,
       'province_name' => $province_name,
       'district_name' => $district_name,
