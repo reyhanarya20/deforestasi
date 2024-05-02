@@ -11,17 +11,15 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboardGFC', [GFCController::class, 'index'])->name('gfcdashboard')->middleware(['auth', 'verified']);
+Route::post('api/fetch-cities', [NtlController::class, 'fetchCity']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/myprofile', [MyprofileController::class, 'update'])->name('myprofile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/dashboardNTL', [NtlController::class, 'index'])->name('ntldashboard');
-    Route::get('/dashboardNTL/search/kabupaten/{name}', [NtlController::class, 'searchDistrict'])->name('search-district-ntl');
-    Route::get('/dashboardNTL/search/provinsi/{name}', [NtlController::class, 'searchProvince'])->name('search-province-ntl');
-    // Route::get('/dashboardGFC/search/provinsi/{name}', [GfcController::class, 'searchProvince'])->name('search-province-gfc');
-    // Route::get('/dashboardGFC/search/year/{year}', [GfcController::class, 'searchYear'])->name('search-year-gfc');
     Route::get('/dashboardGFC/filter', [GfcController::class, 'filter'])->name('filter-gfc');
+    Route::get('/dashboardNTL/filter', [NtlController::class, 'filter'])->name('filter-ntl');
 
     Route::get('/myprofile', [MyprofileController::class, 'index'])->name('myprofile');
 });

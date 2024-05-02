@@ -36,8 +36,8 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
-    
-            {{-- Library Chart JS --}}
+
+    {{-- Library Chart JS --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Template Main CSS File -->
@@ -201,19 +201,8 @@
                 <div class="col-lg-12">
                     <div class="row">
                         <!-- Light Intensity Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card lightintensity-card">
-                                <!-- <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start">
-                        <h6>Filter</h6>
-                      </li>
-
-                      <li><a class="dropdown-item" href="#">GFC</a></li>
-                      <li><a class="dropdown-item" href="#">NTL</a></li>
-                    </ul>
-                  </div> -->
+                        <div class="col-md-5">
+                            <div class="card info-card lightintensity-card" style="height:202px;">
 
                                 <div class="card-body">
                                     <h5 class="card-title">Average Light Intensity <span>| NTL</span></h5>
@@ -225,8 +214,21 @@
                                             <!-- EDIT -->
                                         </div>
                                         <div class="ps-3">
-                                            <h6 class="text-warning">1858.60%</h6>
-                                             <span class="text-muted small pt-2 ps-1">increase</span>
+                                            <h6 class="text-warning">{{ number_format($total, 3, ',', '.') }}%</h6>
+                                            <span class="text-muted small pt-2 ps-1">
+                                                Menampilkan data
+                                                @if (!empty($province_name))
+                                                    {{ $province_name }}
+                                                @else
+                                                    seluruh provinsi dan
+                                                @endif
+
+                                                @if (!empty($district_name))
+                                                    kabupaten {{ $district_name }}
+                                                @else
+                                                    seluruh kabupaten
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -234,69 +236,75 @@
                         </div>
                         <!-- End Light Intensity Card -->
 
-                        <!-- Filter Kota Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card filter-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Filter <span>| Kota / Kabupaten</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-heptagon"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <div class="dropdown">
-                                                <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter"
-                                                    href="#" role="button" id="dropdownMenuLink"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  @foreach ($districts as $district)
-                                                  <form action="{{ route('search-district-ntl', $district->name) }}" method="get">
-                                                    <li><button name="district_id" class="dropdown-item" value="{{ $district->id }}">{{ $district->name }}</button></li>
-                                                  </form>
-                                                  @endforeach
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Filter Kota Card -->
-
                         <!-- Filter Card -->
-                        <div class="col-xxl-4 col-xl-12">
+                        <div class="col-md-7">
                             <div class="card info-card filter-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Filter <span>| Provinsi</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-x-diamond"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <div class="dropdown">
-                                                <a class="btn btn-secondary btn-lg dropdown-toggle tombolfilter"
-                                                    href="#" role="button" id="dropdownMenuLink"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"> Click for Filter
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  @foreach ($provinces as $province)
-                                                  <form action="{{ route('search-province-ntl', $province->name) }}" method="get">
-                                                    <li><button name="province_id" class="dropdown-item" value="{{ $province->id }}">{{ $province->name }}</button></li>
-                                                  </form>
-                                                  @endforeach
-                                                </ul>
+                                    <h5 class="card-title">Filter <span>| Provinsi & Kabupaten</span></h5>
+                                    <form action="{{ route('filter-ntl') }}" method="get">
+                                        <div class="gap-3">
+                                            <div class="row">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="province_id" class="form-label">Provinsi</label>
+                                                    <select class="form-select" id="province-dropdown"
+                                                        name="province_id">
+                                                        <option value="" selected>Pilih provinsi</option>
+                                                        @foreach ($provinces as $province)
+                                                            <option value="{{ $province->id }}">
+                                                                {{ $province->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="district_id" class="form-label">Kabupaten/Kota</label>
+                                                    <select id="city-dropdown" name="district_id"
+                                                        class="form-select mb-3">
+                                                        <option value="" selected>Pilih Kabupaten</option>
+                                                    </select>
+                                                </div>
+                                              
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+                                                        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+                                                        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                                                    <script>
+                                                        $(document).ready(function() {
+                                                            $('#province-dropdown').on('change', function() {
+                                                                var idProvince = $(this).val();
+                                                                $("#city-dropdown").html('');
+                                                                $.ajax({
+                                                                    url: "{{ url('api/fetch-cities') }}",
+                                                                    type: "POST",
+                                                                    data: {
+                                                                        province_id: idProvince,
+                                                                        _token: '{{ csrf_token() }}'
+                                                                    },
+                                                                    dataType: 'json',
+                                                                    success: function(res) {
+                                                                        $('#city-dropdown').html('<option value="">Kabupaten</option>');
+                                                                        $.each(res.cities, function(key, value) {
+                                                                            $("#city-dropdown").append('<option value="' + value.id +
+                                                                                '">' + value.name + '</option>');
+                                                                        });
+                                                                    },
+                                                                    error: function(xhr, status, error) {
+                                                                        console.error(xhr.responseText);
+                                                                    }
+                                                                });
+                                                            });
+                                                        });
+                                                    </script>
+                                              
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary">
+                                                Simpan Filter
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Filter Tahun Card -->
 
                         <!-- Maps -->
                         <div class="col-12">
@@ -375,214 +383,245 @@
 
                         <!-- Chart -->
                         <div class="row">
-                          <div class="col-md-8 col-sm-12">
-                              <div class="card" style="min-height: 568px">
-                                  <div class="card-body">
-                                      <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-  
-                                      <div>
-                                          <canvas id="barchart"></canvas>
-                                      </div>
-  
-                                      <script>
-                                          const ctx1 = document.getElementById('barchart');
-  
-                                          new Chart(ctx1, {
-                                              type: 'bar',
-                                              data: {
-                                                  labels: [
-                                                      @foreach ($yearsbar as $yearbar)
-                                                          '{{ $yearbar }}',
-                                                      @endforeach
-                                                  ],
-                                                  datasets: [{
-                                                      label: '# of Votes',
-                                                      data: [
-                                                          @foreach ($barcharts as $barchart)
-                                                              '{{ $barchart->avg_mean_radiance }}',
-                                                          @endforeach
-                                                      ],
-                                                      borderWidth: 1
-                                                  }]
-                                              },
-                                              options: {
-                                                  scales: {
-                                                      y: {
-                                                          beginAtZero: true
-                                                      }
-                                                  }
-                                              },
-                                          });
-                                      </script>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- End Chart -->
-  
-                          <!-- Chart -->
-                          <div class="col-md-4 col-sm-12 ">
-                              <div class="card" style="min-height: 568px">
-                                  <div class="card-body">
-                                      <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
-  
-                                      <div>
-                                        <canvas class="" style="max-width: 500px; max-height: 500px;" id="doughnutchart"></canvas>
-                                    </div>
-                                  
-                                    <script>
-                                        const ctx2 = document.getElementById('doughnutchart');
-                                    
-                                        new Chart(ctx2, {
-                                            type: 'pie',
-                                            data: {
-                                                labels: [
-                                                  @foreach ($doughnutlabels as $label)
-                                                          '{{ $label }}',
-                                                      @endforeach
-                                                ],
-                                                datasets: [{
-                                                    label: 'My First Dataset',
-                                                    data: [@foreach ($doughnutvalues as $doughnut)
-                                                              '{{ $doughnut }}',
-                                                          @endforeach],
-                                                    backgroundColor: [
-                                                      "rgb(255,193,0)",
-                                                      "rgb(255,154,0)",
-                                                      "rgb(255,116,0)",
-                                                      "rgb(255,77,0)",
-                                                      "rgb(255,0,0)"
+                            <div class="col-md-8 col-sm-12">
+                                <div class="card" style="min-height: 568px">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
+
+                                        <div>
+                                            <canvas id="barchart"></canvas>
+                                        </div>
+
+                                        <script>
+                                            const ctx1 = document.getElementById('barchart');
+
+                                            new Chart(ctx1, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: [
+                                                        @foreach ($yearsbar as $yearbar)
+                                                            '{{ $yearbar }}',
+                                                        @endforeach
                                                     ],
-                                                    hoverOffset: 4
-                                                }]
-                                            },
-                                            options: {
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
+                                                    datasets: [{
+                                                        label: '# of Votes',
+                                                        data: [
+                                                            @foreach ($barcharts as $barchart)
+                                                                '{{ $barchart->avg_mean_radiance }}',
+                                                            @endforeach
+                                                        ],
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
                                                     }
-                                                }
-                                            },
-                                        });
-                                    </script>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- End Chart -->
-
-                        <div class="col-12">
-                            
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Light Distribution | Prediction <span>/Light Intensity</span></h5>
-
-                                    <!-- <img src="/assets/img/tableau ntl sementara.png" alt="data NTL" width="900" height="500" style="justify-content: center; align-items: center" /> -->
-                                    
-                                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                                            <div class="carousel-indicators">
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="6" aria-label="Slide 7"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="7" aria-label="Slide 8"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="8" aria-label="Slide 9"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="9" aria-label="Slide 10"></button>
-                                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="10" aria-label="Slide 11"></button>
-                                            </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/assets/img/2013.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2013</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2014.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2014</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2015.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2015</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2016.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2016</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2017.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2017</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2018.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2018</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2019.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2019</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2020.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2020</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2021.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2021</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2022.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2022</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2023.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2023</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="/assets/img/2024.png" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <p>2024</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-                                        
+                                                },
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- End Chart -->
 
-                        </div>
-                        <!-- End Chart -->
+                            <!-- Chart -->
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="card" style="min-height: 568px">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Chart <span>/Yearly Forest Loss</span></h5>
 
-                        <!-- Berita -->
-                        <!-- <div class="col-12">
+                                        <div>
+                                            <canvas class="" style="max-width: 500px; max-height: 500px;"
+                                                id="doughnutchart"></canvas>
+                                        </div>
+
+                                        <script>
+                                            const ctx2 = document.getElementById('doughnutchart');
+
+                                            new Chart(ctx2, {
+                                                type: 'pie',
+                                                data: {
+                                                    labels: [
+                                                        @foreach ($doughnutlabels as $label)
+                                                            '{{ $label }}',
+                                                        @endforeach
+                                                    ],
+                                                    datasets: [{
+                                                        label: 'My First Dataset',
+                                                        data: [
+                                                            @foreach ($doughnutvalues as $doughnut)
+                                                                '{{ $doughnut }}',
+                                                            @endforeach
+                                                        ],
+                                                        backgroundColor: [
+                                                            "rgb(255,193,0)",
+                                                            "rgb(255,154,0)",
+                                                            "rgb(255,116,0)",
+                                                            "rgb(255,77,0)",
+                                                            "rgb(255,0,0)"
+                                                        ],
+                                                        hoverOffset: 4
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                },
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Chart -->
+
+                            <div class="col-12">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Light Distribution | Prediction <span>/Light
+                                                Intensity</span></h5>
+
+                                        <!-- <img src="/assets/img/tableau ntl sementara.png" alt="data NTL" width="900" height="500" style="justify-content: center; align-items: center" /> -->
+
+                                        <div id="carouselExampleDark" class="carousel carousel-dark slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="0" class="active" aria-current="true"
+                                                    aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="5" aria-label="Slide 6"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="6" aria-label="Slide 7"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="7" aria-label="Slide 8"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="8" aria-label="Slide 9"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="9" aria-label="Slide 10"></button>
+                                                <button type="button" data-bs-target="#carouselExampleDark"
+                                                    data-bs-slide-to="10" aria-label="Slide 11"></button>
+                                            </div>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="/assets/img/2013.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2013</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2014.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2014</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2015.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2015</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2016.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2016</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2017.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2017</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2018.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2018</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2019.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2019</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2020.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2020</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2021.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2021</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2022.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2022</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2023.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2023</p>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="/assets/img/2024.png" class="d-block w-100"
+                                                        alt="...">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>2024</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Chart -->
+
+                            <!-- Berita -->
+                            <!-- <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Berita</h5>
@@ -591,11 +630,11 @@
                                 </div>
                             </div>
                         </div> -->
-                        <!-- End Berita -->
+                            <!-- End Berita -->
+                        </div>
                     </div>
+                    <!-- End Left side columns -->
                 </div>
-                <!-- End Left side columns -->
-            </div>
         </section>
     </main>
     <!-- End #main -->

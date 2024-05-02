@@ -218,8 +218,21 @@
                                             <!-- EDIT -->
                                         </div>
                                         <div class="ps-3">
-                                            <h6 class="text-danger">{{ number_format($total, 3, ',', '.') }} kha Loss</h6>
-                                            <small>Menampilkan data {{ $province_name }} {{ $year }}</small>
+                                            <h6 class="text-danger">{{ number_format($total, 3, ',', '.') }} kha Loss
+                                            </h6>
+                                            <small>Menampilkan data
+                                                @if (!empty($province_name))
+                                                    {{ $province_name }}
+                                                @else
+                                                    seluruh provinsi dan
+                                                @endif
+
+                                                @if (!empty($year))
+                                                    tahun {{ $year }}
+                                                @else
+                                                    seluruh tahun
+                                                @endif
+                                            </small>
 
                                         </div>
                                     </div>
