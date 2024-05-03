@@ -1,14 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\NtlController;
 use App\Http\Controllers\Dashboard\GFCController;
 use App\Http\Controllers\Dashboard\MyprofileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+->name('login');
 
 Route::get('/dashboardGFC', [GFCController::class, 'index'])->name('gfcdashboard')->middleware(['auth', 'verified']);
 Route::post('api/fetch-cities', [NtlController::class, 'fetchCity']);
